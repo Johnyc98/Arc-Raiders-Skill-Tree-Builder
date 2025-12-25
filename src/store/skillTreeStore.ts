@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
 import { Skill, SkillTreeState, BuildSummary, RadarData, SkillTreeType } from '../types';
-import { SKILLS } from '../data/skills';
+import { POSITIONED_SKILLS } from '../data/skillsGraph';
 
 const BASE_MAX_POINTS = 75;
 const EXPEDITION_BONUS_PER_TIER = 5;
 
 const createInitialSkills = (): Skill[] => {
-  return SKILLS.map(skill => ({ ...skill, currentRank: 0 }));
+  return POSITIONED_SKILLS.map(skill => ({ ...skill, currentRank: 0 }));
 };
 
 export const useSkillTreeStore = create<SkillTreeState>((set, get) => ({
