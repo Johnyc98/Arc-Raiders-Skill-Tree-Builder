@@ -1,10 +1,14 @@
 # Arc Raiders Skill Tree Builder
 
-An interactive skill tree builder for Arc Raiders, designed to help players plan and optimize their operative builds.
+An interactive skill tree builder for Arc Raiders, designed to help players plan and optimize their operative builds with a **radial graph visualization** that mirrors the in-game experience.
 
 ## Features
 
-- ✅ **Interactive Skill Trees**: Full Conditioning, Mobility, and Survival trees
+- ✅ **Radial Graph Visualization**: Three interconnected skill trees displayed in circular layout
+  - **Conditioning Tree** (Green) - Lower left quadrant
+  - **Mobility Tree** (Yellow) - Top quadrant
+  - **Survival Tree** (Red) - Lower right quadrant
+- ✅ **Graph-Based Navigation**: Visual connection lines show skill prerequisites
 - ✅ **Smart Point Allocation**: Prerequisites, tree requirements, and point limits enforced
 - ✅ **Undo/Redo**: Full history tracking with keyboard shortcuts (Ctrl+Z / Ctrl+Y)
 - ✅ **Dynamic Build Summary**: Intelligent categorization of skills
@@ -19,6 +23,7 @@ An interactive skill tree builder for Arc Raiders, designed to help players plan
   - Scanlines and grain effects
   - Industrial color palette
   - Terminal-style typography
+  - SVG-based rendering for crisp graphics
 
 ## Tech Stack
 
