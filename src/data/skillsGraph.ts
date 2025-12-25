@@ -14,16 +14,14 @@ import { ALL_COMPLETE_SKILLS } from './completeSkills';
  * Center area: ~600x550
  */
 
-// Root positions (3 starting points)
-const ROOT_POSITIONS = {
-  mobility: { x: 600, y: 200 },      // Top center
-  conditioning: { x: 400, y: 550 },  // Bottom left
-  survival: { x: 800, y: 550 },      // Bottom right
-};
-
 /**
  * Precise skill positions based on screenshot analysis
  * Organized by tree and tier
+ * 
+ * Root positions:
+ * - Mobility: Top center (~600, 200)
+ * - Conditioning: Bottom left (~400, 550)
+ * - Survival: Bottom right (~800, 550)
  */
 const PRECISE_POSITIONS: Record<string, { x: number; y: number; tier: number }> = {
   // ============================================
@@ -117,8 +115,7 @@ export const applyManualPositions = (): Skill[] => {
       };
     }
     
-    // If not mapped, use default position
-    console.warn(`Skill ${skill.id} not mapped, using default position`);
+    // If not mapped, use default position (shouldn't happen with complete mapping)
     return {
       ...skill,
       uiPosition: {
