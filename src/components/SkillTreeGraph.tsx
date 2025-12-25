@@ -44,17 +44,38 @@ export const SkillTreeGraph: FC<SkillTreeGraphProps> = ({ skills }) => {
   };
 
   const getSkillRadius = (skill: Skill) => {
-    if (skill.uiPosition.tier === 0) return 30; // Root
-    if (skill.type === 'binary') return 35; // Keystones
-    return 25; // Regular
+    if (skill.type === 'binary') return 40; // Keystones - larger
+    return 30; // Regular skills
+  };
+
+  // Get icon/emoji for skill based on its properties
+  const getSkillIcon = (skill: Skill) => {
+    // Based on skill name/type
+    if (skill.name.includes('Climb')) return '🧗';
+    if (skill.name.includes('Sprint') || skill.name.includes('Run')) return '🏃';
+    if (skill.name.includes('Roll') || skill.name.includes('Dodge')) return '🤸';
+    if (skill.name.includes('Health') || skill.name.includes('Regen')) return '❤️';
+    if (skill.name.includes('Stamina') || skill.name.includes('Lung')) return '💨';
+    if (skill.name.includes('Breach') || skill.name.includes('Security')) return '🔓';
+    if (skill.name.includes('Loot') || skill.name.includes('Scaven')) return '🔍';
+    if (skill.name.includes('Craft')) return '🔧';
+    if (skill.name.includes('Noise') || skill.name.includes('Silent')) return '🤫';
+    if (skill.name.includes('Weight') || skill.name.includes('Shoulder') || skill.name.includes('Carry')) return '💪';
+    if (skill.name.includes('Mine')) return '💣';
+    if (skill.name.includes('Fall') || skill.name.includes('Ankle')) return '🦵';
+    if (skill.name.includes('Vault')) return '🪜';
+    if (skill.name.includes('Wall')) return '🧱';
+    if (skill.name.includes('Crouch')) return '🐱';
+    return '⚡'; // Default
   };
 
   return (
     <svg 
-      width="800" 
-      height="800" 
+      width="1100" 
+      height="1000" 
       className="skill-tree-graph"
       style={{ background: 'radial-gradient(circle, #1A1D21 0%, #0F1115 100%)' }}
+      viewBox="0 0 1100 1000"
     >
       {/* Render connections first (below nodes) */}
       {connections.map((conn, idx) => {
@@ -157,26 +178,25 @@ export const SkillTreeGraph: FC<SkillTreeGraphProps> = ({ skills }) => {
               </>
             )}
 
-            {/* Lock icon for locked skills */}
-            {isLocked && (
-              <text
-                x={skill.uiPosition.x}
-                y={skill.uiPosition.y + 5}
-                textAnchor="middle"
-                fontSize="16"
-                fill="#790000"
-              >
-                🔒
-              </text>
-            )}
+            {/* Icon in center of circle */}
+            <text
+              x={skill.uiPosition.x}
+              y={skill.uiPosition.y}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fontSize={isLocked ? "20" : "24"}
+              className="pointer-events-none"
+            >
+              {isLocked ? '🔒' : getSkillIcon(skill)}
+            </text>
 
-            {/* Rank display for non-locked skills */}
+            {/* Rank display below icon */}
             {!isLocked && (
               <text
                 x={skill.uiPosition.x}
-                y={skill.uiPosition.y + 5}
+                y={skill.uiPosition.y + 18}
                 textAnchor="middle"
-                fontSize="12"
+                fontSize="9"
                 fontFamily="JetBrains Mono, monospace"
                 fontWeight="bold"
                 fill={isActive ? treeColor : '#9CA3AF'}
@@ -185,18 +205,22 @@ export const SkillTreeGraph: FC<SkillTreeGraphProps> = ({ skills }) => {
               </text>
             )}
 
-            {/* Skill name below node */}
-            <text
-              x={skill.uiPosition.x}
-              y={skill.uiPosition.y + radius + 15}
-              textAnchor="middle"
-              fontSize="10"
-              fontFamily="Barlow, sans-serif"
-              fill="#E0E0E0"
-              className="pointer-events-none"
-            >
-              {skill.name}
-            </text>
+            {/* Skill name below node - split into multiple lines if needed */}
+            {skill.name.split(' ').map((word, i, arr) => (
+              <text
+                key={i}
+                x={skill.uiPosition.x}
+                y={skill.uiPosition.y + radius + 18 + (i * 12)}
+                textAnchor="middle"
+                fontSize="11"
+                fontFamily="Barlow, sans-serif"
+                fontWeight="500"
+                fill="#E0E0E0"
+                className="pointer-events-none"
+              >
+                {word}
+              </text>
+            ))}
 
             {/* Tooltip on hover */}
             <title>
