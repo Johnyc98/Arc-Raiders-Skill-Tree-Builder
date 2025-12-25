@@ -1,4 +1,4 @@
-import React from 'react';
+import type { FC } from 'react';
 import { Skill } from '../types';
 
 interface SkillNodeProps {
@@ -8,7 +8,7 @@ interface SkillNodeProps {
   onRightClick: () => void;
 }
 
-export const SkillNode: React.FC<SkillNodeProps> = ({ 
+export const SkillNode: FC<SkillNodeProps> = ({ 
   skill, 
   isLocked, 
   onClick, 

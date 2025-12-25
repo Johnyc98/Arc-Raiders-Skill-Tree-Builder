@@ -1,7 +1,7 @@
-import React from 'react';
+import type { FC } from 'react';
 import { useSkillTreeStore } from '../store/skillTreeStore';
 
-export const Header: React.FC = () => {
+export const Header: FC = () => {
   const totalPoints = useSkillTreeStore(state => state.totalPoints);
   const maxPoints = useSkillTreeStore(state => state.maxPoints);
   const expeditionTier = useSkillTreeStore(state => state.expeditionTier);

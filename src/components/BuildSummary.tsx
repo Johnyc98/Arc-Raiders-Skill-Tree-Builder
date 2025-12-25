@@ -1,7 +1,7 @@
-import React from 'react';
+import type { FC } from 'react';
 import { useSkillTreeStore } from '../store/skillTreeStore';
 
-export const BuildSummary: React.FC = () => {
+export const BuildSummary: FC = () => {
   const summary = useSkillTreeStore(state => state.getBuildSummary());
 
   return (

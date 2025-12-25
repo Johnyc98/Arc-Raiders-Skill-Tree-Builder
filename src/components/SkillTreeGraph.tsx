@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import type { FC } from 'react';
+import { useMemo } from 'react';
 import { useSkillTreeStore } from '../store/skillTreeStore';
 import { Skill } from '../types';
 
@@ -6,7 +7,7 @@ interface SkillTreeGraphProps {
   skills: Skill[];
 }
 
-export const SkillTreeGraph: React.FC<SkillTreeGraphProps> = ({ skills }) => {
+export const SkillTreeGraph: FC<SkillTreeGraphProps> = ({ skills }) => {
   const allocatePoint = useSkillTreeStore(state => state.allocatePoint);
   const deallocatePoint = useSkillTreeStore(state => state.deallocatePoint);
   const canAllocatePoint = useSkillTreeStore(state => state.canAllocatePoint);

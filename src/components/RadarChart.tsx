@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react';
+import type { FC } from 'react';
+import { useMemo } from 'react';
 import { Radar, RadarChart as RechartsRadar, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 import { useSkillTreeStore } from '../store/skillTreeStore';
 
-export const RadarChart: React.FC = () => {
+export const RadarChart: FC = () => {
   const radarData = useSkillTreeStore(state => state.getRadarData());
   const totalPoints = useSkillTreeStore(state => state.totalPoints);
 

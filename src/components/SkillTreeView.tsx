@@ -1,8 +1,8 @@
-import React from 'react';
+import type { FC } from 'react';
 import { SkillTreeGraph } from './SkillTreeGraph';
 import { POSITIONED_SKILLS } from '../data/skillsGraph';
 
-export const SkillTreeView: React.FC = () => {
+export const SkillTreeView: FC = () => {
   return (
     <div className="flex-1 flex flex-col items-center justify-center">
       <div className="chamfered bg-charcoal/50 p-8 overflow-auto">
