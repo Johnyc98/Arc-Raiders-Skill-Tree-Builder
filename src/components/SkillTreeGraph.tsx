@@ -74,8 +74,9 @@ export const SkillTreeGraph: FC<SkillTreeGraphProps> = ({ skills }) => {
       width="1200" 
       height="1100" 
       className="skill-tree-graph"
-      style={{ background: '#0F1115' }}
+      style={{ background: 'radial-gradient(ellipse at center, #1A1D21 0%, #0F1115 100%)' }}
       viewBox="0 0 1200 1100"
+      preserveAspectRatio="xMidYMid meet"
     >
       {/* Render connections first (below nodes) */}
       {connections.map((conn, idx) => {
