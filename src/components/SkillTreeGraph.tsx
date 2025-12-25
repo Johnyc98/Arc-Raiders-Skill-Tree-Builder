@@ -205,22 +205,21 @@ export const SkillTreeGraph: FC<SkillTreeGraphProps> = ({ skills }) => {
               </text>
             )}
 
-            {/* Skill name below node - split into multiple lines if needed */}
-            {skill.name.split(' ').map((word, i, arr) => (
+            {/* Skill name below node - display on single or multiple lines */}
+            {skill.name && (
               <text
-                key={i}
                 x={skill.uiPosition.x}
-                y={skill.uiPosition.y + radius + 18 + (i * 12)}
+                y={skill.uiPosition.y + radius + 18}
                 textAnchor="middle"
-                fontSize="11"
+                fontSize="10"
                 fontFamily="Barlow, sans-serif"
                 fontWeight="500"
                 fill="#E0E0E0"
                 className="pointer-events-none"
               >
-                {word}
+                {skill.name}
               </text>
-            ))}
+            )}
 
             {/* Tooltip on hover */}
             <title>

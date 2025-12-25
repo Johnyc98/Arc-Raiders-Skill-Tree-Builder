@@ -1,11 +1,11 @@
-import { Skill } from '../types';
+import type { Skill } from '../types';
 
 /**
  * Complete Arc Raiders Skill Tree Database
  * Based on official game data and user screenshots
  * 
  * Structure: 3 trees x 15 skills each = 45 total skills
- * Each tree has 5-6 tiers with prerequisites
+ * Each tree has 5-7 tiers with prerequisites
  */
 
 // ============================================================
