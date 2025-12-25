@@ -1,109 +1,106 @@
-import { Skill } from '../types';
+import type { Skill } from '../types';
 import { ALL_COMPLETE_SKILLS } from './completeSkills';
 
 /**
- * Arc Raiders Skill Tree - Radial Graph Layout Calculator
+ * Precise Manual Mapping of Arc Raiders Skill Tree
+ * Based on exact screenshot analysis
  * 
- * Based on game screenshots analysis:
- * - 3 main trees in Y-formation
- * - Conditioning: Bottom-left (210°), Green  
- * - Mobility: Top (90°), Yellow
- * - Survival: Bottom-right (330°), Red
- * 
- * Each tree spreads ~70 degrees
- * Skills arranged in 7 tiers (rings) radiating outward
+ * Canvas: 1200x1100
+ * Center: (600, 550)
  */
 
-// Helper to convert polar to cartesian coordinates
-export const polarToCartesian = (angle: number, radius: number) => {
-  const radian = (angle * Math.PI) / 180;
-  return {
-    x: Math.cos(radian) * radius,
-    y: Math.sin(radian) * radius,
-  };
+// Manual coordinate mapping based on screenshot
+const SKILL_POSITIONS: Record<string, { x: number; y: number }> = {
+  // CENTER - 3 roots
+  'cond_gentle_pressure': { x: 390, y: 420 },
+  'cond_blast_born': { x: 600, y: 350 },
+  'surv_looters_instincts': { x: 810, y: 420 },
+  
+  // CONDITIONING (Green - Left side)
+  'cond_proficient_pryer': { x: 330, y: 380 },
+  'cond_survivors_stamina': { x: 290, y: 510 },
+  'cond_effortless_swing': { x: 170, y: 480 },
+  'cond_downed_but_determined': { x: 390, y: 320 },
+  'cond_little_extra': { x: 240, y: 480 },
+  'cond_turtle_crawl': { x: 100, y: 510 },
+  'cond_loaded_arms': { x: 270, y: 100 },
+  'cond_sky_clearing_swing': { x: 30, y: 530 },
+  'cond_back_on_feet': { x: 250, y: 750 },
+  'cond_flyswatter': { x: 250, y: 90 },
+  'cond_unburdened_roll': { x: 240, y: 480 },
+  'cond_fight_or_flight': { x: 310, y: 505 },
+  'cond_used_to_weight': { x: 330, y: 500 },
+  
+  // MOBILITY (Yellow - Top/Upper area)
+  'mob_nimble_climber': { x: 500, y: 550 },
+  'mob_marathon_runner': { x: 460, y: 565 },
+  'mob_slip_and_slide': { x: 550, y: 550 },
+  'mob_youthful_lungs': { x: 540, y: 610 },
+  'mob_sturdy_ankles': { x: 460, y: 670 },
+  'mob_carry_momentum': { x: 680, y: 460 },
+  'mob_calming_stroll': { x: 620, y: 690 },
+  'mob_effortless_roll': { x: 460, y: 710 },
+  'mob_heroic_leap': { x: 330, y: 670 },
+  'mob_crawl_before_walk': { x: 660, y: 750 },
+  'mob_vigorous_vaulter': { x: 290, y: 730 },
+  'mob_off_the_wall': { x: 700, y: 815 },
+  'mob_ready_to_roll': { x: 250, y: 790 },
+  'mob_vaults_on_vaults': { x: 710, y: 860 },
+  'mob_vault_spring': { x: 820, y: 525 },
+  
+  // SURVIVAL (Red - Right side)
+  'surv_agile_croucher': { x: 490, y: 400 },
+  'surv_revitalizing_squat': { x: 520, y: 460 },
+  'surv_silent_scavenger': { x: 580, y: 385 },
+  'surv_in_round_crafting': { x: 810, y: 420 },
+  'surv_suffer_in_silence': { x: 600, y: 500 },
+  'surv_good_as_new': { x: 520, y: 340 },
+  'surv_broad_shoulders': { x: 580, y: 385 },
+  'surv_traveling_tinkerer': { x: 600, y: 530 },
+  'surv_stubborn_mule': { x: 580, y: 230 },
+  'surv_looters_luck': { x: 745, y: 525 },
+  'surv_one_raiders_scraps': { x: 610, y: 165 },
+  'surv_three_deep_breaths': { x: 820, y: 690 },
+  'surv_security_breach': { x: 640, y: 65 },
+  'surv_minesweeper': { x: 880, y: 485 },
 };
 
 /**
- * Calculate precise positions for all 45 skills
- * Uses polar coordinates for authentic radial layout
+ * Apply exact positions from screenshot to skills
  */
-export const calculateSkillPositions = () => {
-  const centerX = 550; // Center of canvas
-  const centerY = 500;
-  
-  // Tree configuration matching game layout
-  const treeConfigs = {
-    'Conditioning': { 
-      baseAngle: 210,    // Bottom-left
-      angleSpread: 70,    // Spread width
-      color: '#4c7510'    // Green
-    },
-    'Mobility': { 
-      baseAngle: 90,     // Top
-      angleSpread: 70,
-      color: '#D4A017'   // Yellow  
-    },
-    'Survival': { 
-      baseAngle: 330,    // Bottom-right
-      angleSpread: 70,
-      color: '#D95204'   // Red
-    },
-  };
-
-  const positionedSkills: Skill[] = [];
-
-  // Group skills by tree
-  const skillsByTree = {
-    'Conditioning': ALL_COMPLETE_SKILLS.filter(s => s.tree === 'Conditioning'),
-    'Mobility': ALL_COMPLETE_SKILLS.filter(s => s.tree === 'Mobility'),
-    'Survival': ALL_COMPLETE_SKILLS.filter(s => s.tree === 'Survival'),
-  };
-
-  Object.entries(skillsByTree).forEach(([treeName, skills]) => {
-    const config = treeConfigs[treeName as keyof typeof treeConfigs];
+export const applyManualPositions = (): Skill[] => {
+  return ALL_COMPLETE_SKILLS.map(skill => {
+    const position = SKILL_POSITIONS[skill.id];
     
-    skills.forEach(skill => {
-      const tier = skill.uiPosition.tier;
-      
-      // Calculate radius - 90px per tier from center
-      const radius = tier * 90;
-      
-      // Get all skills in same tier for this tree
-      const tierSkills = skills.filter(s => s.uiPosition.tier === tier);
-      const indexInTier = tierSkills.indexOf(skill);
-      
-      // Calculate angle spread within tier
-      const angleStep = tierSkills.length > 1 
-        ? config.angleSpread / (tierSkills.length - 1) 
-        : 0;
-      
-      const angle = config.baseAngle - (config.angleSpread / 2) + (indexInTier * angleStep);
-      
-      const pos = polarToCartesian(angle, radius);
-      
-      positionedSkills.push({
+    if (position) {
+      return {
         ...skill,
         uiPosition: {
           ...skill.uiPosition,
-          x: centerX + pos.x,
-          y: centerY + pos.y,
+          x: position.x,
+          y: position.y,
         },
-      });
-    });
+      };
+    }
+    
+    // Fallback to center if not mapped yet
+    return {
+      ...skill,
+      uiPosition: {
+        ...skill.uiPosition,
+        x: 600,
+        y: 550,
+      },
+    };
   });
-
-  return positionedSkills;
 };
 
-// Export positioned skills ready for rendering
-export const POSITIONED_SKILLS = calculateSkillPositions();
+export const POSITIONED_SKILLS = applyManualPositions();
 
-// Export helper to get skills by tree
 export const getSkillsByTree = (tree: string) => {
   return POSITIONED_SKILLS.filter(s => s.tree === tree);
 };
 
-// Export helper to get skill by ID
 export const getSkillById = (id: string) => {
   return POSITIONED_SKILLS.find(s => s.id === id);
 };

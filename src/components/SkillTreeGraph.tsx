@@ -71,11 +71,11 @@ export const SkillTreeGraph: FC<SkillTreeGraphProps> = ({ skills }) => {
 
   return (
     <svg 
-      width="1100" 
-      height="1000" 
+      width="1200" 
+      height="1100" 
       className="skill-tree-graph"
-      style={{ background: 'radial-gradient(circle, #1A1D21 0%, #0F1115 100%)' }}
-      viewBox="0 0 1100 1000"
+      style={{ background: '#0F1115' }}
+      viewBox="0 0 1200 1100"
     >
       {/* Render connections first (below nodes) */}
       {connections.map((conn, idx) => {
