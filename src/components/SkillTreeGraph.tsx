@@ -81,26 +81,27 @@ export const SkillTreeGraph: FC<SkillTreeGraphProps> = ({ skills }) => {
       {/* Central Root Node - connects all 3 trees */}
       <g>
         <circle
-          cx={600}
-          cy={900}
-          r={35}
+          cx="600"
+          cy="900"
+          r="35"
           fill="#D4A017"
-          fillOpacity={0.3}
+          opacity="0.3"
           stroke="#D4A017"
-          strokeWidth={3}
+          strokeWidth="3"
         />
         <text
-          x={600}
-          y={900}
+          x="600"
+          y="900"
           textAnchor="middle"
           dominantBaseline="central"
           fontSize="28"
+          fill="#D4A017"
         >
           ⚡
         </text>
         <text
-          x={600}
-          y={940}
+          x="600"
+          y="940"
           textAnchor="middle"
           fontSize="10"
           fontFamily="JetBrains Mono, monospace"
